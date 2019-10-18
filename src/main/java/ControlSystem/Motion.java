@@ -1,3 +1,6 @@
+package main.java.ControlSystem;
+import main.java.ControlSystem.Vacuum;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -98,7 +101,7 @@ public class Motion {
 		  nextLocations_List.clear();
 			this.getNextLocation();
 
-		  System.out.println("Clean Sweep is at location :"+ currentPosition[0] + "," + currentPosition[1]);
+		  System.out.println(" Clean Sweep is at location: "+ currentPosition[0] + "," + currentPosition[1]);
 		} while (! (nextLocations_List.isEmpty() ));
 		
 		goHome();

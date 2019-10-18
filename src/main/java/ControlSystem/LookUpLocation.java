@@ -1,4 +1,7 @@
+package main.java.ControlSystem;
 
+import main.java.ControlSystem.Motion;
+import main.java.ControlSystem.Vacuum;
 
 import java.util.ArrayList;
 import java.util.List;
