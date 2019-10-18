@@ -1,5 +1,3 @@
-package main.java.ControlSystem;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,6 +5,7 @@ import java.util.Random;
 public class Motion {
 	
 	private LookUpLocation lookUp;
+	private Vacuum v;
 	int row;
 	int column;
 	int[] position;
@@ -26,76 +25,82 @@ public class Motion {
 		this.nextLocations_List = lookUp.nextLocations_List;
 		this.lookUp = lookUp;
 		homePosition = new int [] {0,0};
-		VisitedLocations_List.add(homePosition);
-		//System.out.println(currentPosition[0] + ", " + currentPosition[1]);
-
-		//int [] posi = (int[]) nextLocations_List.get(0);
-		//System.out.println(currentPosition[0] + ", " + currentPosition[1]);
 		this.move();
 	}
-	//a;lksdjfl;kasdjf
-	//;kajsdflk;aj
-	//;alskdjf;lj 
+ 
 	
-	public void visitedLocations(int [] currentPosition) {
-		VisitedLocations_List.add(currentPosition);
+	public void visitedLocations(int [] Position) {
+		int x = Position[0];
+		int y = Position[1];
+		int[] oldPosition = new int [] {x, y};
+		VisitedLocations_List.add(oldPosition);
 	}
-	public List<Object> getVisitedLocations() {
-		this.visitedLocations(currentPosition);
+	public List<Object> getVisitedLocations(int [] Position) {
+		this.visitedLocations(Position);
 		return VisitedLocations_List;
 	}
-	public List<Object> nextPossibleLocation () {
-		this.getVisitedLocations();
+	public List<Object> nextPossibleLocations () {
 		lookUp.getNextPossible(currentPosition);
-		//nextLocations_List.removeAll(VisitedLocations_List);
+		return nextLocations_List;
+	}
+	
+	public List<Object> getNextLocation() {
+				
+		this.nextPossibleLocations();
+
+		this.getVisitedLocations(currentPosition);
+		for (int v = 0; v< VisitedLocations_List.size(); v++ ) {
+		     	int [] visited = (int[]) VisitedLocations_List.get(v);
+		       
+		   	for (int n = 0; n< nextLocations_List.size(); n++ ) {
+			       int [] next = (int[]) nextLocations_List.get(n);
+			       if (next[0] == visited[0] && next[1] == visited[1]) {
+			    	   nextLocations_List.remove(n);
+			       }
+				}
+		} 
 		return nextLocations_List;
 	}
 	
 	public void goHome() {
-		System.out.println("I have visited all the places. It is time to go back to home location.");
-		 int [] pos = (int[]) VisitedLocations_List.get(0);
-		 int [] posi = (int[]) nextLocations_List.get(0);
-		       System.out.println(pos[0] + ", " + pos[1]);
-		       System.out.println(posi[0] + ", " + posi[1]);
-		//for (int n = 0; n< VisitedLocations_List.size(); n++ ) {
-		 //      int [] pos = (int[]) VisitedLocations_List.get(n);
-		  //     System.out.println(pos[0] + ", " + pos[1]);
-			//}
+		System.out.println("The room is clean! ");
+		System.out.println("It is time to go back to my charging station.");
 		currentPosition = new int [] {0,0};
 	}
+	
 	public void move() {
-		//this.nextPossibleLocation();
-		this.visitedLocations(currentPosition);
-		  nextLocations_List.removeAll(VisitedLocations_List);
 
-		while (! (nextLocations_List.isEmpty() )) {
+		do {
+			this.getNextLocation();
 			int value = nextLocations_List.size();
 			 int direction = (int) (value * Math.random());
 		newPosition = (int[]) nextLocations_List.get(direction);
-		  int x = newPosition[1] - currentPosition[1];
-		  int y = newPosition[0] - currentPosition[0];
-		  
+		  int x = newPosition[0] - currentPosition[0];
+		  int y = newPosition[1] - currentPosition[1];
+		  nextLocations_List.clear();
 		  if (x == 0 && y == 1) {
 			  System.out.print("Moving up!");
 		  }
-		  if (x == 0 && y == -1) {
+		  else if (x == 0 && y == -1) {
 			  System.out.print("Moving down!");
 		  }
-		  if (x == 1 && y == 0) {
+		  else if (x == 1 && y == 0) {
 			  System.out.print("Moving right!");
 		  }
-		  if (x == -1 && y == 0) {
+		  else if (x == -1 && y == 0) {
 			  System.out.print("Moving left!");
 		  }
-		  
+		  else {
+			  currentPosition = homePosition;
+			  return;
+		  }
 		  currentPosition = newPosition;
+		  nextLocations_List.clear();
+			this.getNextLocation();
+
 		  System.out.println("Clean Sweep is at location :"+ currentPosition[0] + "," + currentPosition[1]);
-		  //nextLocations_List.removeAll(VisitedLocations_List);
-		  nextLocations_List.removeAll(nextLocations_List); 
-		  this.nextPossibleLocation();
-		}
-		  ;
-		System.out.print("Clean ");
+		} while (! (nextLocations_List.isEmpty() ));
+		
 		goHome();
 	}
 }

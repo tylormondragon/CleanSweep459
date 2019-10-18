@@ -1,6 +1,4 @@
 
-package main.java.ControlSystem;
-
 public class Main {
 public static void main(String[] args) {
 	int[][] room = new int[3][3];

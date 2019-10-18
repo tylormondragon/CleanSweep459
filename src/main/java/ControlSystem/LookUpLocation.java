@@ -1,5 +1,4 @@
 
-package main.java.ControlSystem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +21,9 @@ public class LookUpLocation {
 		this.position = vacuum.position;
 		row = i;
 		column = j;
-		currentPosition = vacuum.getCurrentLocation();
-		
+		currentPosition = vacuum.getCurrentLocation();	
 		this.getNextPossible(currentPosition);
-		System.out.println("Clean Sweep 2");
 		Motion motion = new Motion (this);
-		for (int n = 0; n< nextLocations_List.size(); n++ ) {
-	       int [] pos = (int[]) nextLocations_List.get(n);
-	       System.out.println(pos[0] + ", " + pos[1]);
-		}
-		//System.out.println(currentPosition[0] + ", " + currentPosition[1]);
-
 	}
 	
 	public  int[] Up ( int r, int c) {
@@ -88,8 +79,6 @@ public class LookUpLocation {
 		this.Left(r, c);
 		return nextLocations_List;
 	}
-	
-	//new Motion().move();
 
 }
 

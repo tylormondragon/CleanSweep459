@@ -1,5 +1,3 @@
-package main.java.ControlSystem;
-
 import java.lang.reflect.Array;
 
 public class Vacuum {
