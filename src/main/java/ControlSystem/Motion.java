@@ -1,5 +1,6 @@
 package main.java.ControlSystem;
 import main.java.ControlSystem.Vacuum;
+import main.java.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,8 +67,8 @@ public class Motion {
 	}
 	
 	public void goHome() {
-		System.out.println("The room is clean! ");
-		System.out.println("It is time to go back to my charging station.");
+		Logger.logInfo("The room is clean!");
+		Logger.logInfo("It is time to go back to my charging station.");
 		currentPosition = new int [] {0,0};
 	}
 	
@@ -82,16 +83,16 @@ public class Motion {
 		  int y = newPosition[1] - currentPosition[1];
 		  nextLocations_List.clear();
 		  if (x == 0 && y == 1) {
-			  System.out.print("Moving up!");
+		  	Logger.logInfo("Moving up!");
 		  }
 		  else if (x == 0 && y == -1) {
-			  System.out.print("Moving down!");
+		  	Logger.logInfo("Moving down!");
 		  }
 		  else if (x == 1 && y == 0) {
-			  System.out.print("Moving right!");
+			Logger.logInfo("Moving right!");
 		  }
 		  else if (x == -1 && y == 0) {
-			  System.out.print("Moving left!");
+			Logger.logInfo("Moving left!");
 		  }
 		  else {
 			  currentPosition = homePosition;
@@ -99,9 +100,9 @@ public class Motion {
 		  }
 		  currentPosition = newPosition;
 		  nextLocations_List.clear();
-			this.getNextLocation();
+		  this.getNextLocation();
 
-		  System.out.println(" Clean Sweep is at location: "+ currentPosition[0] + "," + currentPosition[1]);
+		  Logger.logInfo("Clean Sweep is at location: " + currentPosition[0] + ',' + currentPosition[1]);
 		} while (! (nextLocations_List.isEmpty() ));
 		
 		goHome();

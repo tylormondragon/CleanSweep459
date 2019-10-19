@@ -1,9 +1,11 @@
 package main.java.ControlSystem;
+import main.java.Logger;
+
 import java.lang.reflect.Array;
 
 public class Vacuum {
 	int[][] room;
-	
+
 	int[] position = new int [2];
 	
 	int  i = (int) Array.get(position, 0);
@@ -20,8 +22,8 @@ public class Vacuum {
 	public void initVacuum(){
 		this.setColumn(0);
 		this.setRow(0);
-		
-		System.out.println("Clean Sweep on");
+
+		Logger.logInfo("Clean Sweep on");
 	}
 	public void setRow(int y) {
 		// TODO Auto-generated method stub
