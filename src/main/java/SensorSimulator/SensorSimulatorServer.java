@@ -1,8 +1,6 @@
 package main.java.SensorSimulator;
 
 // Java I/O and networking libs
-import sun.management.Sensor;
-
 import java.io.*;
 import java.net.*;
 
