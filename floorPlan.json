@@ -621,7 +621,7 @@
 		"isDoorUp" : "false",
 		"isDoorLeft" : "false",
 		"isDoorRight" : "false",
-		"isDoorDown" : "false"""
+		"isDoorDown" : "false"
 	},
 	{
 		"coordinate" : "(3,9)",
