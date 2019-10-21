@@ -1,8 +1,15 @@
+//package main.java.ControlSystem;
+import main.java.ControlSystem.ControlSystemClient;
 import main.java.ControlSystem.Vacuum;
 import main.java.Logger;
+import main.java.SensorSimulator.SensorObject;
+import main.java.SensorSimulator.SensorSimulator;
+import main.java.SensorSimulator.SensorSimulatorServer;
+
+import java.io.IOException;
 
 public class Main {
-public static void main(String[] args) {
+public static void main(String[] args) throws ClassNotFoundException, IOException {
 	int[][] room = new int[3][3];
 	Logger logger = Logger.getInstance();
 	Logger.logInfo("SE 459");
@@ -11,7 +18,9 @@ public static void main(String[] args) {
 	Vacuum vacuum = new Vacuum(room);
 
 	SensorSimulator sensorSimulator = new SensorSimulator();
-	sensorSimulator.SensorRead("C:\\Users\\Raquib Talukder\\Desktop\\se459\\jsonReader\\floorPlan.json");
+	String userDir = System.getProperty("user.dir");
+	//sensorSimulator.SensorRead("C:\\Users\\Raquib Talukder\\Desktop\\se459\\jsonReader\\floorPlan.json");
+	sensorSimulator.SensorRead(userDir + "/floorPlan.json");
 	SensorSimulatorServer newServer = new SensorSimulatorServer(sensorSimulator);
 	newServer.StartSensorSimulatorServer();
 
