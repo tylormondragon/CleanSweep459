@@ -9,11 +9,6 @@ import main.java.SensorSimulator.SensorSimulatorServer;
 import java.io.IOException;
 
 import main.java.Logger;
-import main.java.SensorSimulator.SensorObject;
-import main.java.SensorSimulator.SensorSimulator;
-import main.java.SensorSimulator.SensorSimulatorServer;
-
-import java.io.IOException;
 
 public class Main {
 public static void main(String[] args) throws ClassNotFoundException, IOException {
