@@ -1,10 +1,6 @@
-<<<<<<< Updated upstream
-//package main.java.ControlSystem;
-import main.java.ControlSystem.ControlSystemClient;
-=======
-package main.java.ControlSystem;
 
->>>>>>> Stashed changes
+import main.java.ControlSystem.ControlSystemClient;
+import main.java.ControlSystem.Power;
 import main.java.ControlSystem.Vacuum;
 import main.java.SensorSimulator.SensorObject;
 import main.java.SensorSimulator.SensorSimulator;
@@ -30,13 +26,9 @@ public static void main(String[] args) throws ClassNotFoundException, IOExceptio
 	Vacuum vacuum = new Vacuum(room,power);
 
 	SensorSimulator sensorSimulator = new SensorSimulator();
-<<<<<<< Updated upstream
 	String userDir = System.getProperty("user.dir");
 	//sensorSimulator.SensorRead("C:\\Users\\Raquib Talukder\\Desktop\\se459\\jsonReader\\floorPlan.json");
 	sensorSimulator.SensorRead(userDir + "/floorPlan.json");
-=======
-	sensorSimulator.SensorRead("C:\\Users\\Disha\\Documents\\Disha\\SE452\\GitBranch\\Change 3\\CleanSweep459\\floorPlan.json");
->>>>>>> Stashed changes
 	SensorSimulatorServer newServer = new SensorSimulatorServer(sensorSimulator);
 	try {
 		newServer.StartSensorSimulatorServer();
