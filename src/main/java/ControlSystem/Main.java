@@ -1,5 +1,8 @@
 
 
+import main.java.ControlSystem.ControlSystemClient;
+import main.java.ControlSystem.Power;
+import main.java.ControlSystem.Vacuum;
 import main.java.SensorSimulator.SensorObject;
 import main.java.SensorSimulator.SensorSimulator;
 import main.java.SensorSimulator.SensorSimulatorServer;
@@ -10,6 +13,7 @@ import main.java.Logger;
 
 public class Main {
 public static void main(String[] args) throws ClassNotFoundException, IOException {
+	//Adding a test comment for pull request github setup testing
 	int[][] room = new int[3][3];
 	Power power = new Power(250);
 	Logger logger = Logger.getInstance();
