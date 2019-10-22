@@ -17,10 +17,11 @@ public class Motion {
 	int[] currentPosition;
 	int[] newPosition;
 	int[] homePosition;
+	private Power power;
 	List <Object> VisitedLocations_List = new ArrayList<>();
 	List <Object> nextLocations_List = new ArrayList<>();
 	
-	public Motion(LookUpLocation lookUp) {
+	public Motion(LookUpLocation lookUp, Power power) {
 		// TODO Auto-generated constructor stub
 		this.row = lookUp.row;
 		this.column = lookUp.column;
@@ -28,6 +29,7 @@ public class Motion {
 		this.currentPosition = lookUp.currentPosition;
 		this.nextLocations_List = lookUp.nextLocations_List;
 		this.lookUp = lookUp;
+		this.power = power;
 		homePosition = new int [] {0,0};
 		this.move();
 	}
@@ -83,16 +85,52 @@ public class Motion {
 		  int y = newPosition[1] - currentPosition[1];
 		  nextLocations_List.clear();
 		  if (x == 0 && y == 1) {
-		  	Logger.logInfo("Moving up!");
+			  if(power.getPower() >=50)
+				{
+				    power.setPower(power.getPower() - 1);
+					Logger.logInfo("Moving up!"); 	
+				}
+			  else
+			  {
+				  Logger.logInfo("Not enough power,going back: " +power.getPower());
+				  return;
+			  }
 		  }
 		  else if (x == 0 && y == -1) {
-		  	Logger.logInfo("Moving down!");
+			  if(power.getPower() >=50)
+				{
+				  power.setPower(power.getPower() - 1);
+				  Logger.logInfo("Moving down!");
+				}
+			  else
+			  {
+				  Logger.logInfo("Not enough power,going back: " +power.getPower());
+				  return;
+			  }
 		  }
 		  else if (x == 1 && y == 0) {
-			Logger.logInfo("Moving right!");
+			  if(power.getPower() >=50)
+				{
+				  power.setPower(power.getPower() - 1);
+				  Logger.logInfo("Moving right!");
+				}
+			  else
+			  {
+				  Logger.logInfo("Not enough power,going back: " +power.getPower());
+				  return;
+			  }
 		  }
 		  else if (x == -1 && y == 0) {
-			Logger.logInfo("Moving left!");
+			  if(power.getPower() >=50)
+				{
+				  power.setPower(power.getPower() - 1);
+				  Logger.logInfo("Moving left!");
+				}
+			  else
+			  {
+				  Logger.logInfo("Not enough power,going back: " +power.getPower());
+				  return;
+			  }
 		  }
 		  else {
 			  currentPosition = homePosition;
@@ -102,7 +140,7 @@ public class Motion {
 		  nextLocations_List.clear();
 		  this.getNextLocation();
 
-		  Logger.logInfo("Clean Sweep is at location: " + currentPosition[0] + ',' + currentPosition[1]);
+		  Logger.logInfo("Clean Sweep is at location: " + currentPosition[0] + ',' + currentPosition[1] +','+power.getPower());
 		} while (! (nextLocations_List.isEmpty() ));
 		
 		goHome();
