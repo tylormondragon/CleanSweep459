@@ -1,11 +1,13 @@
 package main.java.ControlSystem;
+
+
 import main.java.Logger;
 
 import java.lang.reflect.Array;
 
 public class Vacuum {
 	int[][] room;
-
+	Power power;
 	int[] position = new int [2];
 	
 	int  i = (int) Array.get(position, 0);
@@ -13,11 +15,12 @@ public class Vacuum {
 
 
 
-	public Vacuum(int[][] room2) {
+	public Vacuum(int[][] room2, Power power) {
 		// TODO Auto-generated constructor stub
 		room = room2;
-		LookUpLocation lookup = new LookUpLocation(this, position, i, j);
-
+	
+		LookUpLocation lookup = new LookUpLocation(this, position, i, j,power);
+		
 	}
 	public void initVacuum(){
 		this.setColumn(0);

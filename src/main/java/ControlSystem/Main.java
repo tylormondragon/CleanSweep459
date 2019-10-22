@@ -1,6 +1,17 @@
+<<<<<<< Updated upstream
 //package main.java.ControlSystem;
 import main.java.ControlSystem.ControlSystemClient;
+=======
+package main.java.ControlSystem;
+
+>>>>>>> Stashed changes
 import main.java.ControlSystem.Vacuum;
+import main.java.SensorSimulator.SensorObject;
+import main.java.SensorSimulator.SensorSimulator;
+import main.java.SensorSimulator.SensorSimulatorServer;
+
+import java.io.IOException;
+
 import main.java.Logger;
 import main.java.SensorSimulator.SensorObject;
 import main.java.SensorSimulator.SensorSimulator;
@@ -11,35 +22,73 @@ import java.io.IOException;
 public class Main {
 public static void main(String[] args) throws ClassNotFoundException, IOException {
 	int[][] room = new int[3][3];
+	Power power = new Power(250);
 	Logger logger = Logger.getInstance();
 	Logger.logInfo("SE 459");
 	Logger.logInfo("Group 2");
 	Logger.logInfo("This is our Clean Sweep Vacuum ");
-	Vacuum vacuum = new Vacuum(room);
+	Vacuum vacuum = new Vacuum(room,power);
 
 	SensorSimulator sensorSimulator = new SensorSimulator();
+<<<<<<< Updated upstream
 	String userDir = System.getProperty("user.dir");
 	//sensorSimulator.SensorRead("C:\\Users\\Raquib Talukder\\Desktop\\se459\\jsonReader\\floorPlan.json");
 	sensorSimulator.SensorRead(userDir + "/floorPlan.json");
+=======
+	sensorSimulator.SensorRead("C:\\Users\\Disha\\Documents\\Disha\\SE452\\GitBranch\\Change 3\\CleanSweep459\\floorPlan.json");
+>>>>>>> Stashed changes
 	SensorSimulatorServer newServer = new SensorSimulatorServer(sensorSimulator);
-	newServer.StartSensorSimulatorServer();
+	try {
+		newServer.StartSensorSimulatorServer();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
 	ControlSystemClient client = new ControlSystemClient();
-	SensorObject foundObject = client.getSensorObject("(0,0)");
-	System.out.println(foundObject.getCoordinate());
-	System.out.println(foundObject.getIsChargingStation());
+	SensorObject foundObject;
+	try {
+		foundObject = client.getSensorObject("(0,0)");
+		System.out.println(foundObject.getCoordinate());
+		System.out.println(foundObject.getIsChargingStation());
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		/*
+		 * System.out.println(foundObject.getCoordinate());
+		 * System.out.println(foundObject.getIsChargingStation());
+		 */
 
-	foundObject = client.getSensorObject("(0,9)");
-	System.out.println(foundObject.getCoordinate());
-	System.out.println(foundObject.getIsChargingStation());
+	try {
+		foundObject = client.getSensorObject("(0,9)");
+		System.out.println(foundObject.getCoordinate());
+		System.out.println(foundObject.getIsChargingStation());
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
 
-	foundObject = client.getSensorObject("(9,1)");
-	System.out.println(foundObject.getCoordinate());
-	System.out.println(foundObject.getIsChargingStation());
+	try {
+		foundObject = client.getSensorObject("(9,1)");
+		System.out.println(foundObject.getCoordinate());
+		System.out.println(foundObject.getIsChargingStation());
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
 
-	foundObject = client.getSensorObject("(4,3)");
-	System.out.println(foundObject.getCoordinate());
-	System.out.println(foundObject.getIsChargingStation());
+	try {
+		foundObject = client.getSensorObject("(4,3)");
+		System.out.println(foundObject.getCoordinate());
+		System.out.println(foundObject.getIsChargingStation());
 
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
 	}
 }

@@ -9,6 +9,7 @@ import java.util.List;
 public class LookUpLocation {
 
 	private Vacuum v;
+	private Power power;
 	int row;
 	int column;
 	int[] position;
@@ -18,7 +19,7 @@ public class LookUpLocation {
 	
 	List <Object> nextLocations_List = new ArrayList<>();
 	
-	public LookUpLocation(Vacuum vacuum, int[] position, int i, int j) {
+	public LookUpLocation(Vacuum vacuum, int[] position, int i, int j, Power power) {
 		// TODO Auto-generated constructor stub
 		this.v = vacuum;
 		this.position = vacuum.position;
@@ -26,7 +27,8 @@ public class LookUpLocation {
 		column = j;
 		currentPosition = vacuum.getCurrentLocation();	
 		this.getNextPossible(currentPosition);
-		Motion motion = new Motion (this);
+		
+		Motion motion = new Motion (this,power);
 	}
 	
 	public  int[] Up ( int r, int c) {
