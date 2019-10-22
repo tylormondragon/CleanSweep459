@@ -1,7 +1,5 @@
 
-import main.java.ControlSystem.ControlSystemClient;
-import main.java.ControlSystem.Power;
-import main.java.ControlSystem.Vacuum;
+
 import main.java.SensorSimulator.SensorObject;
 import main.java.SensorSimulator.SensorSimulator;
 import main.java.SensorSimulator.SensorSimulatorServer;
@@ -24,6 +22,11 @@ public static void main(String[] args) throws ClassNotFoundException, IOExceptio
 	String userDir = System.getProperty("user.dir");
 	//sensorSimulator.SensorRead("C:\\Users\\Raquib Talukder\\Desktop\\se459\\jsonReader\\floorPlan.json");
 	sensorSimulator.SensorRead(userDir + "/floorPlan.json");
+	
+	SensorObject nearestCharge = sensorSimulator.GetNearestChargeStation(new int[]{6,3});
+	System.out.println("The nearest charging station coordinate is : " + nearestCharge.getCoordinate());
+	
+	
 	SensorSimulatorServer newServer = new SensorSimulatorServer(sensorSimulator);
 	try {
 		newServer.StartSensorSimulatorServer();

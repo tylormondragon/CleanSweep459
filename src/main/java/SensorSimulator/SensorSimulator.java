@@ -23,6 +23,26 @@ public class SensorSimulator {
         }
         return foundSensorObject;
     }
+    
+    public SensorObject GetNearestChargeStation(int[] position)
+    {
+        SensorObject foundSensorObject = null;
+        int minDistance = Integer.MAX_VALUE;
+        for(SensorObject sensorObject:sensorObjectArrayList)
+        {
+            if(sensorObject.isChargingStation == false)
+                continue;
+            String coordinate = sensorObject.coordinate;
+            int[] coordinatePostion = new int[] { Integer.parseInt(coordinate.substring(1,2)),Integer.parseInt(coordinate.substring(3,4))};
+            int distance = Math.abs(position[0]-coordinatePostion[0]) + Math.abs(position[1]-coordinatePostion[1]);
+            if(minDistance > distance) {
+                minDistance = distance;
+                foundSensorObject = sensorObject;
+            }
+        }
+        return foundSensorObject;
+
+    }
 
     public void SensorObjectArrayListAdd(SensorObject sensorObject){
         sensorObjectArrayList.add(sensorObject);
