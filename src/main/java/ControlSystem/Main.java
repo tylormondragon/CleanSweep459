@@ -1,4 +1,5 @@
 
+package main.java.ControlSystem;
 
 import main.java.ControlSystem.ControlSystemClient;
 import main.java.ControlSystem.Power;
@@ -22,67 +23,10 @@ public static void main(String[] args) throws ClassNotFoundException, IOExceptio
 	Logger.logInfo("This is our Clean Sweep Vacuum ");
 	Vacuum vacuum = new Vacuum(room,power);
 
-	SensorSimulator sensorSimulator = new SensorSimulator();
-	String userDir = System.getProperty("user.dir");
-	//sensorSimulator.SensorRead("C:\\Users\\Raquib Talukder\\Desktop\\se459\\jsonReader\\floorPlan.json");
-	sensorSimulator.SensorRead(userDir + "/floorPlan.json");
 	
-	SensorObject nearestCharge = sensorSimulator.GetNearestChargeStation(new int[]{6,3});
-	System.out.println("The nearest charging station coordinate is : " + nearestCharge.getCoordinate());
-	
-	
-	SensorSimulatorServer newServer = new SensorSimulatorServer(sensorSimulator);
-	try {
-		newServer.StartSensorSimulatorServer();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	//SensorObject nearestCharge = sensorSimulator.GetNearestChargeStation(new int[]{6,3});
+	//System.out.println("The nearest charging station coordinate is : " + nearestCharge.getCoordinate());
 
-	ControlSystemClient client = new ControlSystemClient();
-	SensorObject foundObject;
-	try {
-		foundObject = client.getSensorObject("(0,0)");
-		System.out.println(foundObject.getCoordinate());
-		System.out.println(foundObject.getIsChargingStation());
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-		/*
-		 * System.out.println(foundObject.getCoordinate());
-		 * System.out.println(foundObject.getIsChargingStation());
-		 */
 
-	try {
-		foundObject = client.getSensorObject("(0,9)");
-		System.out.println(foundObject.getCoordinate());
-		System.out.println(foundObject.getIsChargingStation());
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	
-
-	try {
-		foundObject = client.getSensorObject("(9,1)");
-		System.out.println(foundObject.getCoordinate());
-		System.out.println(foundObject.getIsChargingStation());
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	
-
-	try {
-		foundObject = client.getSensorObject("(4,3)");
-		System.out.println(foundObject.getCoordinate());
-		System.out.println(foundObject.getIsChargingStation());
-
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	
 	}
 }
