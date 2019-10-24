@@ -1,6 +1,8 @@
 package main.java.SensorSimulator;
 
-public class SensorObject {
+import java.io.Serializable;
+
+public class SensorObject implements Serializable {
 
     String coordinate;
     String floorType;

@@ -3,10 +3,7 @@
  * Author: Raquib Talukder
  **/
 
-package main.java.ControlSystem;
-
-import main.java.SensorSimulator.SensorSimulator;
-import main.java.SensorSimulator.SensorSimulatorServer;
+package main.java.SensorSimulator;
 
 import java.io.IOException;
 
