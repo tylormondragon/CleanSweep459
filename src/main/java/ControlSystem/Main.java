@@ -1,15 +1,7 @@
 
 package main.java.ControlSystem;
 
-import main.java.ControlSystem.ControlSystemClient;
-import main.java.ControlSystem.Power;
-import main.java.ControlSystem.Vacuum;
-import main.java.SensorSimulator.SensorObject;
-import main.java.SensorSimulator.SensorSimulator;
-import main.java.SensorSimulator.SensorSimulatorServer;
-
 import java.io.IOException;
-
 import main.java.Logger;
 
 public class Main {
