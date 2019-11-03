@@ -1,10 +1,8 @@
 package main.java.ControlSystem;
-import main.java.ControlSystem.Vacuum;
 import main.java.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Motion {
 
@@ -12,60 +10,61 @@ public class Motion {
 	private Vacuum v;
 	int row;
 	int column;
-	int[] position;
-	int[] visitedPosition;
-	int[] currentPosition;
-	int[] newPosition;
-	int[] homePosition;
+	private int[] currentPosition;
+	private int[] newPosition;
+	private int[] homePosition;
 	private Power power;
-	List <Object> VisitedLocations_List = new ArrayList<>();
-	List <Object> nextLocations_List = new ArrayList<>();
+	private List <Object> VisitedLocations_List = new ArrayList<>();
+	private List <Object> notVisitedLocations_List = new ArrayList<>();
+	private List <Object> nextLocations_List = new ArrayList<>();
+	private List <Object> notVisitedLocations = new ArrayList<>(); // List of all the untouched floor coordinates.
 
 	public Motion(LookUpLocation lookUp, Power power) {
 		// TODO Auto-generated constructor stub
 		this.row = lookUp.row;
 		this.column = lookUp.column;
-		this.position = lookUp.position;
 		this.currentPosition = lookUp.currentPosition;
-		this.nextLocations_List = lookUp.nextLocations_List;
+
 		this.lookUp = lookUp;
 		this.power = power;
 		homePosition = new int [] {0,0};
+		VisitedLocations_List.add(homePosition);
+		this.notVisitedLocations = allPossibleCoordinates();
 		this.move();
 	}
 
-
-	public void visitedLocations(int [] Position) {
+	public void visitedLocations(int [] Position) { // GOOD!
 		int x = Position[0];
 		int y = Position[1];
 		int[] oldPosition = new int [] {x, y};
 		VisitedLocations_List.add(oldPosition);
 	}
-	public List<Object> getVisitedLocations(int [] Position) {
-		this.visitedLocations(Position);
+	public List<Object> getVisitedLocations() { //GOOD!
+		//this.visitedLocations();
 		return VisitedLocations_List;
 	}
-	public List<Object> nextPossibleLocations () {
-		lookUp.getNextPossible(currentPosition);
-		return nextLocations_List;
-	}
 
-	public List<Object> getNextLocation() {
-
-		this.nextPossibleLocations();
-
-		this.getVisitedLocations(currentPosition);
-		for (int v = 0; v< VisitedLocations_List.size(); v++ ) {
-			int [] visited = (int[]) VisitedLocations_List.get(v);
-
-			for (int n = 0; n< nextLocations_List.size(); n++ ) {
-				int [] next = (int[]) nextLocations_List.get(n);
-				if (next[0] == visited[0] && next[1] == visited[1]) {
-					nextLocations_List.remove(n);
-				}
+	public List<Object> allPossibleCoordinates(){
+		int x =0; int y =0;
+		for ( x = 0; x < 10 ; x++){
+			for ( y = 0; y < 10 ; y++){
+				int [] coordinate = new int [] {x, y};
+				notVisitedLocations_List.add(coordinate);
 			}
 		}
-		return nextLocations_List;
+		return notVisitedLocations_List;
+	}
+
+	public List<Object> getUnvisitedLocation(int[] position) { //removes the current position from the not visited list.
+
+		//notVisitedLocations_List.stream().filter(value -> value.).forEach();
+		for (int v = 0; v < notVisitedLocations.size(); v++) {
+			int[] visited = (int[]) notVisitedLocations.get(v);
+			if (position[0] == visited[0] && position[1] == visited[1]) {
+				notVisitedLocations.remove(v);
+			}
+		}
+		return notVisitedLocations_List;
 	}
 
 	public void goHome() {
@@ -74,75 +73,78 @@ public class Motion {
 		currentPosition = new int [] {0,0};
 	}
 
-	public void move() {
-
+	public int[] nextCoordinate(int [] position){ // keep it
+		nextLocations_List.clear();
+		this.nextLocations_List = lookUp.getNextPossible(position);
+		int value = nextLocations_List.size();
+		int direction = (int) (value * Math.random());
+		newPosition = (int[]) nextLocations_List.get(direction);
+		return newPosition;
+	}
+	public void move(){
 		do {
-			this.getNextLocation();
-			int value = nextLocations_List.size();
-			int direction = (int) (value * Math.random());
-			newPosition = (int[]) nextLocations_List.get(direction);
+			newPosition = nextCoordinate(currentPosition);
+
 			int x = newPosition[0] - currentPosition[0];
 			int y = newPosition[1] - currentPosition[1];
-			nextLocations_List.clear();
+
 			if (x == 0 && y == 1) {
-				if(power.getPower() >=50)
-				{
-					power.setPower(power.getPower() - 1);
-					Logger.logInfo("Moving up!");
+				currentPosition = newPosition;
+				Logger.logInfo("Moving up! At coordinate:" + currentPosition[0] + ", " + currentPosition[1]);
+				if (alreadyVisited(currentPosition)) {
+					Logger.logInfo("Already cleaned: " + currentPosition[0] + ", " + currentPosition[1]);
+				} else {
+					visitedLocations(currentPosition);
+					getUnvisitedLocation(currentPosition);
 				}
-				else
-				{
-					Logger.logInfo("Not enough power,going back: " +power.getPower());
-					return;
+			} else if (x == 0 && y == -1) {
+				currentPosition = newPosition;
+				Logger.logInfo("Moving down!At coordinate:" + currentPosition[0] + ", " + currentPosition[1]);
+				if (alreadyVisited(currentPosition)) {
+					Logger.logInfo("Already cleaned: " + currentPosition[0] + ", " + currentPosition[1]);
+				} else {
+					visitedLocations(currentPosition);
+					getUnvisitedLocation(currentPosition);
 				}
-			}
-			else if (x == 0 && y == -1) {
-				if(power.getPower() >=50)
-				{
-					power.setPower(power.getPower() - 1);
-					Logger.logInfo("Moving down!");
+			} else if (x == 1 && y == 0) {
+				currentPosition = newPosition;
+				Logger.logInfo("Moving right!At coordinate:" + currentPosition[0] + ", " + currentPosition[1]);
+				if (alreadyVisited(currentPosition)) {
+					Logger.logInfo("Already cleaned: " + currentPosition[0] + ", " + currentPosition[1]);
+				} else {
+					visitedLocations(currentPosition);
+					getUnvisitedLocation(currentPosition);
 				}
-				else
-				{
-					Logger.logInfo("Not enough power,going back: " +power.getPower());
-					return;
+			} else if (x == -1 && y == 0) {
+				currentPosition = newPosition;
+				Logger.logInfo("Moving left!At coordinate:" + currentPosition[0] + ", " + currentPosition[1]);
+				if (alreadyVisited(currentPosition)) {
+					Logger.logInfo("Already cleaned: " + currentPosition[0] + ", " + currentPosition[1]);
+				} else {
+					visitedLocations(currentPosition); //adding the current position to the visited
+					getUnvisitedLocation(currentPosition);
 				}
-			}
-			else if (x == 1 && y == 0) {
-				if(power.getPower() >=50)
-				{
-					power.setPower(power.getPower() - 1);
-					Logger.logInfo("Moving right!");
-				}
-				else
-				{
-					Logger.logInfo("Not enough power,going back: " +power.getPower());
-					return;
-				}
-			}
-			else if (x == -1 && y == 0) {
-				if(power.getPower() >=50)
-				{
-					power.setPower(power.getPower() - 1);
-					Logger.logInfo("Moving left!");
-				}
-				else
-				{
-					Logger.logInfo("Not enough power,going back: " +power.getPower());
-					return;
-				}
-			}
-			else {
-				currentPosition = homePosition;
-				return;
-			}
-			currentPosition = newPosition;
-			nextLocations_List.clear();
-			this.getNextLocation();
+			} else {
+				//currentPosition = homePosition;
+				visitedLocations(currentPosition);
+				nextCoordinate(currentPosition);
+				getUnvisitedLocation(currentPosition);
 
-			Logger.logInfo("Clean Sweep is at location: " + currentPosition[0] + ',' + currentPosition[1] +','+power.getPower());
-		} while (! (nextLocations_List.isEmpty() ));
+				//return;
+			}
+		} while (! (notVisitedLocations_List.isEmpty() ));
+		Logger.logInfo("You Got this");
 
-		goHome();
+	}
+
+	private boolean alreadyVisited(int [] position) {
+		VisitedLocations_List = getVisitedLocations();
+		boolean value = false;
+		for (int v = 0; v < VisitedLocations_List.size(); v++) {
+			int[] visited = (int[]) VisitedLocations_List.get(v);
+			if (position[0] == visited[0] && position[1] == visited[1]) {
+				value = true; break;
+			} else value = false;
+		}return value;
 	}
 }
