@@ -5,11 +5,26 @@
 
 package main.java.ControlSystem;
 
+import main.java.Logger;
 import main.java.SensorSimulator.SensorObject;
 
 public class mainControlSystemClient {
+
+    public static Power power;
     public static void main(String[] args) {
         ControlSystemClient client = new ControlSystemClient();
+
+        int[][] room = new int[3][3];
+        power = new Power(250.0);
+        Logger logger = Logger.getInstance();
+        Logger.logInfo("SE 459");
+        Logger.logInfo("Group 2");
+        Logger.logInfo("This is our Clean Sweep Vacuum ");
+        Vacuum vacuum = new Vacuum(room,power);
+
+
+        //SensorObject nearestCharge = sensorSimulator.GetNearestChargeStation(new int[]{6,3});
+        //System.out.println("The nearest charging station coordinate is : " + nearestCharge.getCoordinate());
         SensorObject foundObject;
         try {
             foundObject = client.getSensorObject("(0,0)");
