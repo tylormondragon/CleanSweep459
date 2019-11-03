@@ -75,10 +75,10 @@ public class SensorSimulator {
                 Boolean isDoorRight = Boolean.valueOf((String) jsonObject.get("isDoorRight"));
                 Boolean isDoorDown = Boolean.valueOf((String) jsonObject.get("isDoorDown"));
 
-                SensorObject newObject = new SensorObject(  coordinate, floorType, roomType, isDirty,
-                        isChargingStation, isStairs, isWallUp, isWallLeft,
-                        isWallRight, isWallDown, isDoorUp, isDoorLeft,
-                        isDoorRight, isDoorDown);
+                SensorObject newObject = new SensorObject(  coordinate, floorType, roomType, isDirty, dirtValue,
+                                                            isChargingStation, isStairs, isWallUp, isWallLeft,
+                                                            isWallRight, isWallDown, isDoorUp, isDoorLeft,
+                                                            isDoorRight, isDoorDown);
 
                 SensorObjectArrayListAdd(newObject);
             }
