@@ -8,6 +8,7 @@ public class SensorObject implements Serializable {
     String floorType;
     String roomType;
     Boolean isDirty;
+    double dirtValue;
     Boolean isChargingStation;
     Boolean isStairs;
     Boolean isWallUp;
@@ -19,7 +20,7 @@ public class SensorObject implements Serializable {
     Boolean isDoorRight;
     Boolean isDoorDown;
 
-    public SensorObject ( String coordinate, String floorType, String roomType, Boolean isDirty,
+    public SensorObject ( String coordinate, String floorType, String roomType, Boolean isDirty, double dirtValue,
                           Boolean isChargingStation, Boolean isStairs, Boolean isWallUp, Boolean isWallLeft,
                           Boolean isWallRight, Boolean isWallDown, Boolean isDoorUp, Boolean isDoorLeft,
                           Boolean isDoorRight, Boolean isDoorDown) {
@@ -28,6 +29,7 @@ public class SensorObject implements Serializable {
         this.floorType = floorType;
         this.roomType = roomType;
         this.isDirty = isDirty;
+        this.dirtValue = dirtValue;
         this.isChargingStation = isChargingStation;
         this.isStairs = isStairs;
         this.isWallUp = isWallUp;
@@ -55,6 +57,8 @@ public class SensorObject implements Serializable {
     public Boolean getIsDirty(){
         return isDirty;
     }
+
+    public double getDirtValue() { return dirtValue; }
 
     public Boolean getIsChargingStation(){
         return isChargingStation;

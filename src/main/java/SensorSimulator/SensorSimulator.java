@@ -63,6 +63,7 @@ public class SensorSimulator {
                 String floorType = (String) jsonObject.get("floorType");
                 String roomType = (String) jsonObject.get("roomType");
                 Boolean isDirty = Boolean.valueOf((String) jsonObject.get("isDirty"));
+                double dirtValue = Double.valueOf((String) jsonObject.get("dirtValue"));
                 Boolean isChargingStation = Boolean.valueOf((String) jsonObject.get("isChargingStation"));
                 Boolean isStairs = Boolean.valueOf((String) jsonObject.get("isStairs"));
                 Boolean isWallUp = Boolean.valueOf((String) jsonObject.get("isWallUp"));
