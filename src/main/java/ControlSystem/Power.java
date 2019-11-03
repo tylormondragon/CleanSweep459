@@ -1,26 +1,45 @@
 package main.java.ControlSystem;
 
 import main.java.SensorSimulator.SensorObject;
+import sun.management.Sensor;
+
+import java.util.ArrayList;
 
 public class Power {
 
-	private SensorObject floorTile;
-	
-	float power;
+	Double power;
 
-	public Double calculateMovementPower(String floorType1, String floorType2) {
-		Double num = 8.0;
-		floorType1 = floorTile.getFloorType();
-		floorType2 = floorTile.getFloorType();
+	//This takes in two floor tiles, gets the floor type and calculates movement power to be deducted from the main power source
+	public Double calculateMovementPower(SensorObject tile1, SensorObject tile2) {
+		Double power = 0.0;
+		String floortype1 = tile1.getFloorType();
+		String floortype2 = tile2.getFloorType();
+		ArrayList<String> floorTypes = new ArrayList<>();
+		ArrayList<Double> floorValues = new ArrayList<>();
 
-		return num;
+		floorTypes.add(floortype1);
+		floorTypes.add(floortype2);
+		for(String floor: floorTypes) {
+			switch(floor) {
+				case "Bare Floor":
+					floorValues.add(1.0);
+				case "Low Pile":
+					floorValues.add(2.0);
+				case "High Pile":
+					floorValues.add(3.0);
+			}
+		}
+		for(Double num: floorValues) {
+			power += num;
+		}
+		power = power /2.0;
+
+		return power;
 
 	}
 
-	public Double calculateCleaningPower(String floorType) {
-		Double num = 1.0;
-
-		return num;
+	public Double calculateCleaningPower(SensorObject currentTile) {
+		return currentTile.getDirtValue();
 	}
 
 	private int getPowerValue() {
@@ -28,15 +47,15 @@ public class Power {
 		return num;
 	}
 
-	public Power(float power) {
+	public Power(Double power) {
 		this.power = power;
 	}
 
-	public float getPower() {
+	public Double getPower() {
 		return power;
 	}
 
-	public void setPower(float power) {
+	public void setPower(Double power) {
 		this.power = power;
 	}
 
