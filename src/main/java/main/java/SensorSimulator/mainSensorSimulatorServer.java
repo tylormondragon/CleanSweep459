@@ -6,7 +6,7 @@
 package main.java.SensorSimulator;
 
 import java.io.IOException;
-
+//this is a test comment
 public class mainSensorSimulatorServer {
     public static void main(String[] args) {
 
