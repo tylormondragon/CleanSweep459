@@ -82,6 +82,8 @@ public class MovingDown {
                 if (this.motion.alreadyVisited(this.currentPosition)) {
                     Logger.logInfo("\t Again at: " + newx + ", " + newy);
                     pause(1);
+                    Logger.logInfo("\t Power remaining after moving: " + powerRemaining);
+                    pause(1);
                     this.motion.getUnvisitedLocation(this.currentPosition);
                 } else {
                     Logger.logInfo("Currently at: " + newx + ", " + newy);
