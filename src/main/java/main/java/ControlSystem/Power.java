@@ -23,10 +23,13 @@ public class Power {
 			switch(floor) {
 				case "Bare Floor":
 					floorValues.add(1.0);
+					break;
 				case "Low Pile":
 					floorValues.add(2.0);
+					break;
 				case "High Pile":
 					floorValues.add(3.0);
+					break;
 			}
 		}
 		for(Double num: floorValues) {
