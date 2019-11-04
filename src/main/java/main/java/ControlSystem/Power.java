@@ -35,7 +35,6 @@ public class Power {
 		power = power /2.0;
 
 		return power;
-
 	}
 
 	public Double calculateCleaningPower(SensorObject currentTile) {
