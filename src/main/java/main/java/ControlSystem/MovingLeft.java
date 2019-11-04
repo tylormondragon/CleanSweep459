@@ -72,7 +72,7 @@ public class MovingLeft {
                 double p = this.power.power - deductPower; //deducts the power
                 this.power.setPower(p);
                 double powerRemaining = this.power.getPower();
-                Logger.logInfo("Moving RIGHT!");
+                Logger.logInfo("Moving LEFT!");
 
                 // check if visited before
                 if (this.motion.alreadyVisited(this.currentPosition)) {
