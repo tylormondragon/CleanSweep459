@@ -58,7 +58,7 @@ public class MovingLeft {
                 }
             } else { // Can Move
                 this.currentPosition = this.newPosition;
-                if (this.power.getPower() < 75) {
+                if (this.power.getPower() < 75) {   
                     Logger.logInfo("\n RUNNING LOW ON POWER.");
                     if (afterMove.getIsChargingStation()) {
                         Logger.logInfo("\t NOW CHARGING...");
@@ -72,7 +72,7 @@ public class MovingLeft {
                 double p = this.power.power - deductPower; //deducts the power
                 this.power.setPower(p);
                 double powerRemaining = this.power.getPower();
-                Logger.logInfo("Moving RIGHT!");
+                Logger.logInfo("Moving LEFT!");
 
                 // check if visited before
                 if (this.motion.alreadyVisited(this.currentPosition)) {
