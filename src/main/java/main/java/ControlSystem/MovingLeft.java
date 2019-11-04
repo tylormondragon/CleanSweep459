@@ -58,7 +58,7 @@ public class MovingLeft {
                 }
             } else { // Can Move
                 this.currentPosition = this.newPosition;
-                if (this.power.getPower() < 75) {
+                if (this.power.getPower() < 75) {   
                     Logger.logInfo("\n RUNNING LOW ON POWER.");
                     if (afterMove.getIsChargingStation()) {
                         Logger.logInfo("\t NOW CHARGING...");
