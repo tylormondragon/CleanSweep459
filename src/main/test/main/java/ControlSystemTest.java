@@ -5,11 +5,14 @@ package main.java;
  * Author: Raquib Talukder
  **/
 
-import org.junit.jupiter.api.*;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class ControlSystemTest {
+
     @Test
     public void Test(){
         System.out.println("test");
+        assertEquals("test", "test");
     }
 }
