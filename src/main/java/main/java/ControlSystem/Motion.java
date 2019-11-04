@@ -1,6 +1,5 @@
 package main.java.ControlSystem;
 import main.java.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +9,8 @@ public class Motion {
 	private Vacuum v;
 	int row;
 	int column;
-	private int[] currentPosition;
-	private int[] newPosition;
+	 int[] currentPosition;
+	 int[] newPosition;
 	private int[] homePosition;
 	private Power power;
 	private List <Object> VisitedLocations_List = new ArrayList<>();
@@ -57,7 +56,6 @@ public class Motion {
 
 	public List<Object> getUnvisitedLocation(int[] position) { //removes the current position from the not visited list.
 
-		//notVisitedLocations_List.stream().filter(value -> value.).forEach();
 		for (int v = 0; v < notVisitedLocations.size(); v++) {
 			int[] visited = (int[]) notVisitedLocations.get(v);
 			if (position[0] == visited[0] && position[1] == visited[1]) {
@@ -81,6 +79,7 @@ public class Motion {
 		newPosition = (int[]) nextLocations_List.get(direction);
 		return newPosition;
 	}
+
 	public void move(){
 		do {
 			newPosition = nextCoordinate(currentPosition);
@@ -88,56 +87,41 @@ public class Motion {
 			int x = newPosition[0] - currentPosition[0];
 			int y = newPosition[1] - currentPosition[1];
 
-			if (x == 0 && y == 1) {
-				currentPosition = newPosition;
+			if (x == 0 && y == 1) { //MOVE UP
+				MovingUp movingUp = new MovingUp(this, currentPosition, newPosition, power);
+				currentPosition = movingUp.getCurrentPosition();
+				/*currentPosition = newPosition;
 				Logger.logInfo("Moving up! At coordinate:" + currentPosition[0] + ", " + currentPosition[1]);
 				if (alreadyVisited(currentPosition)) {
-					Logger.logInfo("Already cleaned: " + currentPosition[0] + ", " + currentPosition[1]);
+					Logger.logInfo("Back at: " + currentPosition[0] + ", " + currentPosition[1]);
 				} else {
 					visitedLocations(currentPosition);
 					getUnvisitedLocation(currentPosition);
-				}
-			} else if (x == 0 && y == -1) {
-				currentPosition = newPosition;
-				Logger.logInfo("Moving down!At coordinate:" + currentPosition[0] + ", " + currentPosition[1]);
-				if (alreadyVisited(currentPosition)) {
-					Logger.logInfo("Already cleaned: " + currentPosition[0] + ", " + currentPosition[1]);
-				} else {
-					visitedLocations(currentPosition);
-					getUnvisitedLocation(currentPosition);
-				}
-			} else if (x == 1 && y == 0) {
-				currentPosition = newPosition;
-				Logger.logInfo("Moving right!At coordinate:" + currentPosition[0] + ", " + currentPosition[1]);
-				if (alreadyVisited(currentPosition)) {
-					Logger.logInfo("Already cleaned: " + currentPosition[0] + ", " + currentPosition[1]);
-				} else {
-					visitedLocations(currentPosition);
-					getUnvisitedLocation(currentPosition);
-				}
-			} else if (x == -1 && y == 0) {
-				currentPosition = newPosition;
-				Logger.logInfo("Moving left!At coordinate:" + currentPosition[0] + ", " + currentPosition[1]);
-				if (alreadyVisited(currentPosition)) {
-					Logger.logInfo("Already cleaned: " + currentPosition[0] + ", " + currentPosition[1]);
-				} else {
-					visitedLocations(currentPosition); //adding the current position to the visited
-					getUnvisitedLocation(currentPosition);
-				}
-			} else {
+				}*/
+			}
+			else if (x == 0 && y == -1) { //MOVE DOWN
+				MovingDown movingDown = new MovingDown(this, currentPosition, newPosition, power);
+				currentPosition = movingDown.getCurrentPosition();
+			}
+			else if (x == 1 && y == 0) { //MOVE RIGHT
+				MovingRight movingRight = new MovingRight(this, currentPosition, newPosition, power);
+				currentPosition = movingRight.getCurrentPosition();
+			}
+			else if (x == -1 && y == 0) { // MOVE LEFT
+				MovingLeft movingLeft = new MovingLeft(this, currentPosition, newPosition, power);
+				currentPosition = movingLeft.getCurrentPosition();
+			}
+			else {
 				//currentPosition = homePosition;
 				visitedLocations(currentPosition);
 				nextCoordinate(currentPosition);
 				getUnvisitedLocation(currentPosition);
-
-				//return;
 			}
 		} while (! (notVisitedLocations_List.isEmpty() ));
 		Logger.logInfo("You Got this");
-
 	}
 
-	private boolean alreadyVisited(int [] position) {
+	public boolean alreadyVisited(int [] position) {
 		VisitedLocations_List = getVisitedLocations();
 		boolean value = false;
 		for (int v = 0; v < VisitedLocations_List.size(); v++) {
