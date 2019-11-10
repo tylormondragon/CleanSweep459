@@ -17,7 +17,7 @@
 		"isDoorDown" : "false"
 	},
 	{
-		"coordinate" : "(0,1)",
+		"coordinate" : "(1,0)",
 		"floorType" : "Low Pile",
 		"roomType" : "Guest Bedroom A",
 		"isDirty" : "true",
