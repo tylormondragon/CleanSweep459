@@ -5,14 +5,16 @@
 
 package com.cleansweep.SensorSimulator;
 
-import java.io.IOException;
+import java.io.*;
+
 //this is a test comment
 public class mainSensorSimulatorServer {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
         SensorSimulator sensorSimulator = new SensorSimulator();
-        String userDir = System.getProperty("user.dir");
-        sensorSimulator.SensorRead(userDir + "/floorPlan.json");
+        BufferedReader br = new BufferedReader(new InputStreamReader(mainSensorSimulatorServer.class.getResourceAsStream("/floorPlan.json")));
+
+        sensorSimulator.SensorRead(br);
 
         SensorSimulatorServer newServer = new SensorSimulatorServer(sensorSimulator);
 

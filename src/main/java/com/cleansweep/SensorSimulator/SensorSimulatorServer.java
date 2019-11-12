@@ -1,6 +1,8 @@
 package com.cleansweep.SensorSimulator;
 
 // Java I/O and networking libs
+import com.cleansweep.Logger;
+
 import java.io.*;
 import java.net.*;
 
@@ -65,7 +67,7 @@ class Worker extends Thread {
 
     public void SensorSimulatorSearch(String coordinate, ObjectOutputStream output){
         try {
-            System.out.println("Looking up: " + coordinate);
+            Logger.logInfo("SIMULATOR: Looking up coordinate " + coordinate);
             // check if we can resolve the name to get details about the hostname and IP address
             // if it doesn't exist, an exception will be thrown back at the client
 

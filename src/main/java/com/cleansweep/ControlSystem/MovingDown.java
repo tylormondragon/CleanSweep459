@@ -1,6 +1,6 @@
 package com.cleansweep.ControlSystem;
 import com.cleansweep.SensorSimulator.SensorObject;
-import main.java.Logger;
+import com.cleansweep.Logger;
 
 import java.util.concurrent.TimeUnit;
 
