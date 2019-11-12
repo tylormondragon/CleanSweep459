@@ -1,8 +1,7 @@
-package main.java.ControlSystem;
+package com.cleansweep.ControlSystem;
+import com.cleansweep.SensorSimulator.SensorObject;
 import main.java.Logger;
-import main.java.SensorSimulator.SensorObject;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 

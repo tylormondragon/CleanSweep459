@@ -1,7 +1,6 @@
-package main.java.ControlSystem;
+package com.cleansweep.ControlSystem;
 
-import main.java.SensorSimulator.SensorObject;
-import sun.management.Sensor;
+import com.cleansweep.SensorSimulator.SensorObject;
 
 import java.util.ArrayList;
 

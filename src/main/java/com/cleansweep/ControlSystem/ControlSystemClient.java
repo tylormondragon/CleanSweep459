@@ -1,7 +1,7 @@
-package main.java.ControlSystem;
+package com.cleansweep.ControlSystem;
 
 // Java I/O and networking libs
-import main.java.SensorSimulator.SensorObject;
+import com.cleansweep.SensorSimulator.SensorObject;
 
 import java.io.*;
 import java.net.*;

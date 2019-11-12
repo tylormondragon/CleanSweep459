@@ -1,4 +1,4 @@
-package main.java.SensorSimulator;
+package com.cleansweep.SensorSimulator;
 
 import java.io.Serializable;
 
