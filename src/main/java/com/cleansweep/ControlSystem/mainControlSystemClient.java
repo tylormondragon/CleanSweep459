@@ -5,7 +5,7 @@
 
 package com.cleansweep.ControlSystem;
 
-import main.java.Logger;
+import com.cleansweep.Logger;
 
 public class mainControlSystemClient {
 

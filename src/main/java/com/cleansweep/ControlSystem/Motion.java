@@ -1,5 +1,5 @@
 package com.cleansweep.ControlSystem;
-import main.java.Logger;
+import com.cleansweep.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,9 +91,9 @@ public class Motion {
 				MovingUp movingUp = new MovingUp(this, currentPosition, newPosition, power);
 				currentPosition = movingUp.getCurrentPosition();
 				/*currentPosition = newPosition;
-				Logger.logInfo("Moving up! At coordinate:" + currentPosition[0] + ", " + currentPosition[1]);
+				com.cleansweep.Logger.logInfo("Moving up! At coordinate:" + currentPosition[0] + ", " + currentPosition[1]);
 				if (alreadyVisited(currentPosition)) {
-					Logger.logInfo("Back at: " + currentPosition[0] + ", " + currentPosition[1]);
+					com.cleansweep.Logger.logInfo("Back at: " + currentPosition[0] + ", " + currentPosition[1]);
 				} else {
 					visitedLocations(currentPosition);
 					getUnvisitedLocation(currentPosition);
