@@ -3,7 +3,7 @@
  * Author: Raquib Talukder
  **/
 
-package main.java.SensorSimulator;
+package com.cleansweep.SensorSimulator;
 
 import java.io.IOException;
 //this is a test comment

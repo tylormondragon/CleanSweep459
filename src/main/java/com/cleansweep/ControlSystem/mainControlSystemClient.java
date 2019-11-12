@@ -3,10 +3,9 @@
  * Author: Raquib Talukder
  **/
 
-package main.java.ControlSystem;
+package com.cleansweep.ControlSystem;
 
 import main.java.Logger;
-import main.java.SensorSimulator.SensorObject;
 
 public class mainControlSystemClient {
 

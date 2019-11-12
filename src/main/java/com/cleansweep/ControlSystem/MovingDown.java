@@ -1,18 +1,17 @@
-package main.java.ControlSystem;
+package com.cleansweep.ControlSystem;
+import com.cleansweep.SensorSimulator.SensorObject;
 import main.java.Logger;
-import main.java.SensorSimulator.SensorObject;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
-public class MovingRight {
+public class MovingDown {
     private Motion motion;
     private int[] currentPosition;
     private int[] newPosition;
     private Power power;
 
-    public MovingRight(Motion motion, int[] currentPosition, int[] newPosition, Power power) {
+    public MovingDown(Motion motion, int[] currentPosition, int[] newPosition, Power power) {
         this.motion = motion;
         this.currentPosition = currentPosition;
         this.newPosition = newPosition;
@@ -33,34 +32,38 @@ public class MovingRight {
             afterMove = client.getSensorObject("(" + newx + "," + newy + ")");
             afterMove.getCoordinate();
 
-            if (beforeMove.getIsWallUp()) { // Can't move
-                if (this.motion.alreadyVisited(this.newPosition)) {
-                } else {
-                    Logger.logInfo("Wall detected. Unable to move RIGHT.");
+            if (beforeMove.getIsWallUp()){ // Can't move
+                if (this.motion.alreadyVisited(this.newPosition)){
+                }else {
+                    Logger.logInfo("Wall detected. Unable to move DOWN.");
                     this.motion.visitedLocations(this.newPosition);
                     this.motion.getUnvisitedLocation(this.currentPosition);
                 }
-            } else if (beforeMove.getIsStairs()) { //Can't move
-                Logger.logInfo("Stairs detected. Unable to move RIGHT.");
+            }
+            else if (beforeMove.getIsStairs()){ //Can't move
+                Logger.logInfo("Stairs detected. Unable to move DOWN.");
                 this.motion.visitedLocations(this.newPosition);
                 this.motion.getUnvisitedLocation(this.currentPosition);
-            } else if (beforeMove.getIsDoorUp()) { // Move through the door
+            }
+            else if (beforeMove.getIsDoorUp()){ // Move through the door
                 this.currentPosition = this.newPosition;
-                Logger.logInfo("Moving through the doors RIGHT.");
+                Logger.logInfo("Moving through the doors DOWN.");
                 this.motion.visitedLocations(this.newPosition);
                 this.motion.getUnvisitedLocation(this.newPosition);
-            } else if (afterMove.getRoomType() == "Bathroom") {
-                if (this.motion.alreadyVisited(this.newPosition)) {
-                } else {
-                    Logger.logInfo("Bathroom detected. Unable to move RIGHT.");
+            }
+            else if (afterMove.getRoomType() == "Bathroom"){
+                if (this.motion.alreadyVisited(this.newPosition)){
+                }else {
+                    Logger.logInfo("Bathroom detected. Unable to move DOWN.");
                     this.motion.visitedLocations(this.newPosition);
                     this.motion.getUnvisitedLocation(this.currentPosition);
                 }
-            } else { // Can Move
+            }
+            else { // Can Move
                 this.currentPosition = this.newPosition;
-                if (this.power.getPower() < 75) {
+                if (this.power.getPower() < 75){
                     Logger.logInfo("\n RUNNING LOW ON POWER.");
-                    if (afterMove.getIsChargingStation()) {
+                    if (afterMove.getIsChargingStation()){
                         Logger.logInfo("\t NOW CHARGING...");
                         pause(2);
                         this.power.setPower(250.0);
@@ -72,7 +75,7 @@ public class MovingRight {
                 double p = this.power.power - deductPower; //deducts the power
                 this.power.setPower(p);
                 double powerRemaining = this.power.getPower();
-                Logger.logInfo("Moving RIGHT!");
+                Logger.logInfo("Moving DOWN!");
 
                 // check if visited before
                 if (this.motion.alreadyVisited(this.currentPosition)) {
@@ -116,7 +119,7 @@ public class MovingRight {
         }
     }
 
-    private void pause(int n) {
+    private void pause(int n){
         try {
             TimeUnit.SECONDS.sleep(n);
         } catch (InterruptedException e) {
@@ -127,4 +130,5 @@ public class MovingRight {
     public int[] getCurrentPosition() {
         return currentPosition;
     }
+
 }

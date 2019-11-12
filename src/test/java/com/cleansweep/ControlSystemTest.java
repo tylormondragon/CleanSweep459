@@ -1,6 +1,4 @@
-package main.java;
-
-/**
+package com.cleansweep; /**
  * Class: SE<xxx> - <descrption>
  * Author: Raquib Talukder
  **/

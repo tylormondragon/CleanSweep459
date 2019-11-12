@@ -1,4 +1,4 @@
-package main.java.SensorSimulator;
+package com.cleansweep.SensorSimulator;
 
 // Java I/O and networking libs
 import java.io.*;
