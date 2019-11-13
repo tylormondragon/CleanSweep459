@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Motion {
-
+//testing for git -Asma
 	private LookUpLocation lookUp;
 	private Vacuum v;
 	int row;
@@ -18,7 +18,6 @@ public class Motion {
 	private List <Object> notVisitedLocations_List = new ArrayList<>();
 	private List <Object> nextLocations_List = new ArrayList<>();
 	private List <Object> notVisitedLocations = new ArrayList<>();// List of all the untouched floor coordinates.
-	int counter = 0;
 
 	public Motion(LookUpLocation lookUp, Power power) {
 		// TODO Auto-generated constructor stub
