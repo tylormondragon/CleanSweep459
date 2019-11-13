@@ -1,10 +1,11 @@
-package main.java.SensorSimulator;
+package com.cleansweep.SensorSimulator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -49,11 +50,11 @@ public class SensorSimulator {
         sensorObjectArrayList.add(sensorObject);
     }
 
-    public void SensorRead(String fileName){
+    public void SensorRead(BufferedReader br){
         JSONParser parser = new JSONParser();
 
         try{
-            JSONArray fileObject = (JSONArray) parser.parse(new FileReader(fileName));
+            JSONArray fileObject = (JSONArray) parser.parse(br);
 
             for (Object fileObjects : fileObject){
 

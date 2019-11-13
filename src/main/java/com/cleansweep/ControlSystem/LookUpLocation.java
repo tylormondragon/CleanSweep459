@@ -1,7 +1,4 @@
-package main.java.ControlSystem;
-
-import main.java.ControlSystem.Motion;
-import main.java.ControlSystem.Vacuum;
+package com.cleansweep.ControlSystem;
 
 import java.util.ArrayList;
 import java.util.List;

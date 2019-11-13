@@ -1,5 +1,4 @@
-package main.java;
-
+package com.cleansweep;
 
 import java.io.File;
 import java.io.FileWriter;

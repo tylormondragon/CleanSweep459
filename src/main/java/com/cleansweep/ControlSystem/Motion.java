@@ -1,5 +1,5 @@
-package main.java.ControlSystem;
-import main.java.Logger;
+package com.cleansweep.ControlSystem;
+import com.cleansweep.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,7 +111,8 @@ public class Motion {
 				MovingUp movingUp = new MovingUp(this, currentPosition, newPosition, power);
 				currentPosition = movingUp.getCurrentPosition();
 				previousPosition = movingUp.getPreviousPosition();
-		}
+			}
+
 			else if (x == 0 && y == -1) { //MOVE DOWN
 				MovingDown movingDown = new MovingDown(this, currentPosition, newPosition, power);
 				currentPosition = movingDown.getCurrentPosition();
