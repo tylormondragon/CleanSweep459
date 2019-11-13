@@ -60,7 +60,7 @@
 		"isStairs" : "false",
 		"isWallUp" : "false",
 		"isWallLeft" : "false",
-		"isWallRight" : "false",
+		"isWallRight" : "true",
 		"isWallDown" : "true",
 		"isDoorUp" : "false",
 		"isDoorLeft" : "false",
