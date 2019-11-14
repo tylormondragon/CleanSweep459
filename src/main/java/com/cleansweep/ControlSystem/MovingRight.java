@@ -42,19 +42,32 @@ public class MovingRight {
             if (beforeMove.getIsWallRight()) { // Can't move
                 Logger.logInfo("Wall detected. Unable to move RIGHT.");
                 this.motion.getUnvisitedLocation(this.currentPosition);
-
-            } else if (afterMove.getIsStairs()) { //Can't move
+            }
+            else if (afterMove.getIsStairs()) { //Can't move
                 Logger.logInfo("Stairs detected. Unable to move RIGHT.");
                 this.motion.visitedLocations(this.newPosition);
                  this.motion.getUnvisitedLocation(this.currentPosition);
-            } else if (beforeMove.getIsDoorRight()) { // Move through the door
-                Logger.logInfo("Moving through the doors RIGHT.");
-                canMove();
-            } else if (afterMove.getRoomType() == "Bathroom") {
+            }
+
+            else if (afterMove.getRoomType() == "Bathroom") {
                 Logger.logInfo("Bathroom detected. Unable to move RIGHT.");
                 this.motion.visitedLocations(this.newPosition);
                 this.motion.getUnvisitedLocation(this.currentPosition);
-            } else { // Can Move
+            }
+            else if (afterMove.getRoomType() == "Closet"){
+                Logger.logInfo("Closet detected. Unable to move RIGHT.");
+                this.motion.visitedLocations(this.newPosition);
+                this.motion.getUnvisitedLocation(this.currentPosition);
+            }
+            else if (afterMove.getIsChargingStation()){
+                this.motion.visitedLocations(this.newPosition);
+                this.motion.getUnvisitedLocation(this.currentPosition);
+            }
+            else if (beforeMove.getIsDoorRight()) { // Move through the door
+                Logger.logInfo("Moving through the doors RIGHT.");
+                canMove();
+            }
+            else { // Can Move
                 canMove();
             }
         } catch (ClassNotFoundException e) {
