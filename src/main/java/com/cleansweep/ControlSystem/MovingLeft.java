@@ -47,15 +47,25 @@ public class MovingLeft {
                 this.motion.visitedLocations(this.newPosition);
                 this.motion.getUnvisitedLocation(this.currentPosition);
             }
-            else if (beforeMove.getIsDoorLeft()) { // Move through the door
-                Logger.logInfo("Moving through the doors LEFT.");
-                canMove();
-
-            } else if (afterMove.getRoomType() == "Bathroom") {
+            else if (afterMove.getRoomType() == "Bathroom") {
                     Logger.logInfo("Bathroom detected. Unable to move LEFT.");
                     this.motion.visitedLocations(this.newPosition);
                     this.motion.getUnvisitedLocation(this.currentPosition);
-            } else { // Can Move
+            }
+            else if (afterMove.getRoomType() == "Closet"){
+                Logger.logInfo("Closet detected. Unable to move LEFT.");
+                this.motion.visitedLocations(this.newPosition);
+                this.motion.getUnvisitedLocation(this.currentPosition);
+            }
+            else if (afterMove.getIsChargingStation()){
+                this.motion.visitedLocations(this.newPosition);
+                this.motion.getUnvisitedLocation(this.currentPosition);
+            }
+            else if (beforeMove.getIsDoorLeft()) { // Move through the door
+                Logger.logInfo("Moving through the doors LEFT.");
+                canMove();
+            }
+            else { // Can Move
                 canMove();
             }
         } catch (ClassNotFoundException e) {

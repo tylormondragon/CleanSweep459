@@ -49,17 +49,24 @@ public class MovingDown {
                 this.motion.visitedLocations(this.newPosition);
                 this.motion.getUnvisitedLocation(this.currentPosition);
             }
-
-            else if (beforeMove.getIsDoorDown()){ // Move through the door
-                Logger.logInfo("Moving through the doors DOWN.");
-                canMove();
-            }
             else if (afterMove.getRoomType() == "Bathroom"){
                 Logger.logInfo("Bathroom detected. Unable to move DOWN.");
                 this.motion.visitedLocations(this.newPosition);
                 this.motion.getUnvisitedLocation(this.currentPosition);
                 }
-
+            else if (afterMove.getRoomType() == "Closet"){
+                Logger.logInfo("Closet detected. Unable to move DOWN.");
+                this.motion.visitedLocations(this.newPosition);
+                this.motion.getUnvisitedLocation(this.currentPosition);
+            }
+            else if (afterMove.getIsChargingStation()){
+                this.motion.visitedLocations(this.newPosition);
+                this.motion.getUnvisitedLocation(this.currentPosition);
+            }
+            else if (beforeMove.getIsDoorDown()){ // Move through the door
+                Logger.logInfo("Moving through the doors DOWN.");
+                canMove();
+            }
             else { // Can Move
                 canMove();
             }

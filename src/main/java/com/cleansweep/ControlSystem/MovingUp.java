@@ -47,16 +47,25 @@ public class MovingUp {
                 this.motion.visitedLocations(this.newPosition);
                 this.motion.getUnvisitedLocation(this.currentPosition);
             }
-            else if (beforeMove.getIsDoorUp()){ // Move through the door
-                Logger.logInfo("Moving through the doors UP.");
-                canMove();
-            }
             else if (afterMove.getRoomType() == "Bathroom"){
                 Logger.logInfo("Bathroom detected. Unable to move UP.");
                 this.motion.visitedLocations(this.newPosition);
                 this.motion.getUnvisitedLocation(this.currentPosition);
-
-            } else { // Can Move
+            }
+            else if (afterMove.getRoomType() == "Closet"){
+                Logger.logInfo("Closet detected. Unable to move UP.");
+                this.motion.visitedLocations(this.newPosition);
+                this.motion.getUnvisitedLocation(this.currentPosition);
+            }
+            else if (afterMove.getIsChargingStation()){
+                this.motion.visitedLocations(this.newPosition);
+                this.motion.getUnvisitedLocation(this.currentPosition);
+            }
+            else if (beforeMove.getIsDoorUp()){ // Move through the door
+                Logger.logInfo("Moving through the doors UP.");
+                canMove();
+            }
+            else { // Can Move
                 canMove();
             }
         } catch (ClassNotFoundException e) {
