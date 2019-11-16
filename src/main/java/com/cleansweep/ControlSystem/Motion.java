@@ -11,7 +11,7 @@ public class Motion {
 	int row;
 	int column;
 	static int[] currentPosition;
-	 int[] newPosition = new int [] {0,0};
+	int[] newPosition = new int [] {0,0};
 	int[] previousPosition = new int [] {0,0};
 	private int[] homePosition;
 	private Power power;
