@@ -40,26 +40,34 @@ public class MovingUp {
 
             if (beforeMove.getIsWallUp()){ // Can't move
                 Logger.logInfo("Wall detected. Unable to move UP.");
-                this.motion.getUnvisitedLocation(this.currentPosition);
+                if (afterMove.getRoomType() == "Bathroom"){
+                    Logger.logInfo("Bathroom detected. Unable to move UP.");
+                    this.motion.visitedLocations(this.newPosition);
+                }
+                else if (afterMove.getRoomType() == "Closet"){
+                    Logger.logInfo("Closet detected. Unable to move UP.");
+                    this.motion.visitedLocations(this.newPosition);
+                }
+               // this.motion.getUnvisitedLocation(this.currentPosition);
             }
             else if (afterMove.getIsStairs()){ //Can't move
                 Logger.logInfo("Stairs detected. Unable to move UP.");
                 this.motion.visitedLocations(this.newPosition);
-                this.motion.getUnvisitedLocation(this.currentPosition);
+                //this.motion.getUnvisitedLocation(this.currentPosition);
             }
             else if (afterMove.getRoomType() == "Bathroom"){
                 Logger.logInfo("Bathroom detected. Unable to move UP.");
                 this.motion.visitedLocations(this.newPosition);
-                this.motion.getUnvisitedLocation(this.currentPosition);
+                //this.motion.getUnvisitedLocation(this.currentPosition);
             }
             else if (afterMove.getRoomType() == "Closet"){
                 Logger.logInfo("Closet detected. Unable to move UP.");
                 this.motion.visitedLocations(this.newPosition);
-                this.motion.getUnvisitedLocation(this.currentPosition);
+                //this.motion.getUnvisitedLocation(this.currentPosition);
             }
             else if (afterMove.getIsChargingStation()){
                 this.motion.visitedLocations(this.newPosition);
-                this.motion.getUnvisitedLocation(this.currentPosition);
+                //this.motion.getUnvisitedLocation(this.currentPosition);
             }
             else if (beforeMove.getIsDoorUp()){ // Move through the door
                 Logger.logInfo("Moving through the doors UP.");

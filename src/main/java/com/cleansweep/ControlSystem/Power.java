@@ -43,11 +43,6 @@ public class Power {
 		return currentTile.getDirtValue();
 	}
 
-	private int getPowerValue() {
-		int num = 8;
-		return num;
-	}
-
 	public Power(Double power) {
 		this.power = power;
 	}

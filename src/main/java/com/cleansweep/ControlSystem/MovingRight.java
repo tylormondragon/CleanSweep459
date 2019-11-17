@@ -41,27 +41,35 @@ public class MovingRight {
 
             if (beforeMove.getIsWallRight()) { // Can't move
                 Logger.logInfo("Wall detected. Unable to move RIGHT.");
-                this.motion.getUnvisitedLocation(this.currentPosition);
+                if (afterMove.getRoomType() == "Bathroom"){
+                    Logger.logInfo("Bathroom detected. Unable to move RIGHT.");
+                    this.motion.visitedLocations(this.newPosition);
+                }
+                else if (afterMove.getRoomType() == "Closet"){
+                    Logger.logInfo("Closet detected. Unable to move RIGHT.");
+                    this.motion.visitedLocations(this.newPosition);
+                }
+                //this.motion.getUnvisitedLocation(this.currentPosition);
             }
             else if (afterMove.getIsStairs()) { //Can't move
                 Logger.logInfo("Stairs detected. Unable to move RIGHT.");
                 this.motion.visitedLocations(this.newPosition);
-                 this.motion.getUnvisitedLocation(this.currentPosition);
+                 //this.motion.getUnvisitedLocation(this.currentPosition);
             }
 
             else if (afterMove.getRoomType() == "Bathroom") {
                 Logger.logInfo("Bathroom detected. Unable to move RIGHT.");
                 this.motion.visitedLocations(this.newPosition);
-                this.motion.getUnvisitedLocation(this.currentPosition);
+                //this.motion.getUnvisitedLocation(this.currentPosition);
             }
             else if (afterMove.getRoomType() == "Closet"){
                 Logger.logInfo("Closet detected. Unable to move RIGHT.");
                 this.motion.visitedLocations(this.newPosition);
-                this.motion.getUnvisitedLocation(this.currentPosition);
+               // this.motion.getUnvisitedLocation(this.currentPosition);
             }
             else if (afterMove.getIsChargingStation()){
                 this.motion.visitedLocations(this.newPosition);
-                this.motion.getUnvisitedLocation(this.currentPosition);
+               // this.motion.getUnvisitedLocation(this.currentPosition);
             }
             else if (beforeMove.getIsDoorRight()) { // Move through the door
                 Logger.logInfo("Moving through the doors RIGHT.");
@@ -111,7 +119,7 @@ public class MovingRight {
             Logger.logInfo("\t Floor Type: " + floorType);
             pause(1);
             this.motion.visitedLocations(this.currentPosition);
-            this.motion.getUnvisitedLocation(this.currentPosition);
+            //this.motion.getUnvisitedLocation(this.currentPosition);
 
             if (afterMove.getIsDirty()) {
                 deductPower = this.power.calculateCleaningPower(afterMove);
