@@ -9,7 +9,7 @@ import java.io.*;
 
 //this is a test comment
 public class mainSensorSimulatorServer {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
 
         SensorSimulator sensorSimulator = new SensorSimulator();
         BufferedReader br = new BufferedReader(new InputStreamReader(mainSensorSimulatorServer.class.getResourceAsStream("/floorPlan.json")));

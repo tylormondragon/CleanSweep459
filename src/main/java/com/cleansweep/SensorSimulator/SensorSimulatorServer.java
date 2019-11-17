@@ -2,11 +2,10 @@ package com.cleansweep.SensorSimulator;
 
 // Java I/O and networking libs
 import com.cleansweep.Logger;
-
 import java.io.*;
 import java.net.*;
 
-public class SensorSimulatorServer{
+public class SensorSimulatorServer extends Thread {
     SensorSimulator sensorSimulatorObject;
 
     public SensorSimulatorServer(SensorSimulator sensorSimulatorObject) { this.sensorSimulatorObject = sensorSimulatorObject; }
