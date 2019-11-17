@@ -106,7 +106,10 @@ public class Motion {
 			visitedLocations(currentPosition);
 			getUnvisitedLocation(currentPosition);
 
-		//	newPosition = nextCoordinate(currentPosition);
+			if (currentPosition[0] != previousPosition[0] && currentPosition[1] != previousPosition[1]){
+				previousPosition = currentPosition;
+			}
+			newPosition = nextCoordinate(currentPosition);
 
 			int x = newPosition[0] - currentPosition[0];
 			int y = newPosition[1] - currentPosition[1];
@@ -116,28 +119,28 @@ public class Motion {
 			if (x == 0 && y == 1) { //MOVE UP
 				MovingUp movingUp = new MovingUp(this, currentPosition, newPosition, power);
 				currentPosition = movingUp.getCurrentPosition();
-				previousPosition = movingUp.getPreviousPosition();
+				//previousPosition = movingUp.getPreviousPosition();
 			}
 
 			else if (x == 0 && y == -1) { //MOVE DOWN
 				MovingDown movingDown = new MovingDown(this, currentPosition, newPosition, power);
 				currentPosition = movingDown.getCurrentPosition();
-				previousPosition = movingDown.getPreviousPosition();
+				//previousPosition = movingDown.getPreviousPosition();
 			}
 			else if (x == 1 && y == 0) { //MOVE RIGHT
 				MovingRight movingRight = new MovingRight(this, currentPosition, newPosition, power);
 				currentPosition = movingRight.getCurrentPosition();
-				previousPosition = movingRight.getPreviousPosition();
+				//previousPosition = movingRight.getPreviousPosition();
 			}
 			else if (x == -1 && y == 0) { // MOVE LEFT
 				MovingLeft movingLeft = new MovingLeft(this, currentPosition, newPosition, power);
 				currentPosition = movingLeft.getCurrentPosition();
-				previousPosition = movingLeft.getPreviousPosition();
+				//previousPosition = movingLeft.getPreviousPosition();
 			}
 			else {
-				nextCoordinate(currentPosition);
+				newPosition = nextCoordinate(currentPosition);
 			}
-			nextCoordinate(currentPosition);
+			//newPosition = nextCoordinate(currentPosition);
 		} while (! (notVisitedLocations_List.isEmpty() ));
 		Logger.logInfo("You Got this");
 	}
