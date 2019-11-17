@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Motion {
+	//Lets see if we have conflicting code
 
 	private LookUpLocation lookUp;
 	private Vacuum v;
 	int row;
 	int column;
-	 int[] currentPosition;
-	 int[] newPosition = new int [] {0,0};
+	static int[] currentPosition;
+	int[] newPosition = new int [] {0,0};
 	int[] previousPosition = new int [] {0,0};
 	private int[] homePosition;
 	private Power power;
-	private List <Object> VisitedLocations_List = new ArrayList<>();
+	static List <int[]> VisitedLocations_List = new ArrayList<>();
 	private List <Object> notVisitedLocations_List = new ArrayList<>();
 	private List <Object> nextLocations_List = new ArrayList<>();
 	private List <Object> notVisitedLocations = new ArrayList<>();// List of all the untouched floor coordinates.
@@ -40,9 +41,12 @@ public class Motion {
 		int[] oldPosition = new int [] {x, y};
 		VisitedLocations_List.add(oldPosition);
 	}
-	public List<Object> getVisitedLocations() { //GOOD!
+	public static List<int []> getVisitedLocations() { //GOOD!
 		//this.visitedLocations();
 		return VisitedLocations_List;
+	}
+	public static int[] getCurrentPosition(){
+		return currentPosition;
 	}
 
 	public List<Object> allPossibleCoordinates(){
@@ -109,6 +113,8 @@ public class Motion {
 
 			int x = newPosition[0] - currentPosition[0];
 			int y = newPosition[1] - currentPosition[1];
+
+			System.out.println("Minimum power to go home: " + ChargingStation.WorstCaseScenarioToChargingStation());
 
 			if (x == 0 && y == 1) { //MOVE UP
 				MovingUp movingUp = new MovingUp(this, currentPosition, newPosition, power);
