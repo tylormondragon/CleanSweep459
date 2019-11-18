@@ -1,8 +1,10 @@
 package com.cleansweep.ControlSystem;
 
+import com.cleansweep.Logger;
 import com.cleansweep.SensorSimulator.SensorObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Power {
 
@@ -53,12 +55,32 @@ public class Power {
 
 	public void setPower(Double power) {
 		this.power = power;
+		if (this.power < 75){
+			Logger.logInfo("\n RUNNING LOW ON POWER.");
+			if (this.power <=5){
+				Logger.logInfo("\n NO MORE POWER REMAINING.");
+				System.exit(0);
+			}
+			else{
+				//FIND CHARGING STATION
+				fakeCharging();
+			}
+		}
 	}
 
-	@Override
-	public String toString() {
-		return "Power [power=" + power + "]";
+	private void fakeCharging() {
+		Logger.logInfo("\n Charging...");
+		pause(1);
+		setPower(250.0);
+		Logger.logInfo("\n CHARGE FULL");
+
 	}
-	
+	private void pause(int n) {
+		try {
+			TimeUnit.SECONDS.sleep(n);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
