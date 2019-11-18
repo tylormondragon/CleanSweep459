@@ -8,7 +8,7 @@ public class mainControlSystemClient {
     public static void main(String[] args) {
         ControlSystemClient client = new ControlSystemClient();
 
-        int[][] room = new int[10][10];
+        int[][] room = new int[9][9];
         power = new Power(250.0);
         Logger logger = Logger.getInstance();
         Logger.logInfo("SE 459");
