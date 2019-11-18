@@ -113,8 +113,9 @@ public class ChargingStation {
         int currentX = currentPosition[0];
         int currentY = currentPosition[1];
 
-        int minimumPowerNeeded = findShortestPathPlusPower(visited, notVisited, ChargingStation.getChargingStationXCoordinate(), ChargingStation.getChargingStationYCoordinate(),
-                currentX, currentY, Integer.MAX_VALUE, 0);
+        int minimumPowerNeeded =
+                findShortestPathPlusPower(visited, notVisited, ChargingStation.getChargingStationXCoordinate(),
+                                          ChargingStation.getChargingStationYCoordinate(), currentX, currentY, Integer.MAX_VALUE, 0);
         return minimumPowerNeeded*3;
     }
 }
