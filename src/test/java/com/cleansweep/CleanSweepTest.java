@@ -17,7 +17,7 @@ import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CleanSweepTesting {
+public class CleanSweepTest {
 //    final int[] startingPosition = {1,1};
 //    SensorObject startingObject;
 //    SensorObject moveUpObject;
