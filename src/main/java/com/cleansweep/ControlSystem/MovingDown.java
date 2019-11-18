@@ -1,4 +1,5 @@
 package com.cleansweep.ControlSystem;
+
 import com.cleansweep.SensorSimulator.SensorObject;
 import com.cleansweep.Logger;
 
@@ -9,8 +10,8 @@ public class MovingDown {
     private Motion motion;
     private int[] currentPosition;// CURRENT POSITION
     private int[] newPosition; // RANDOMLY SELECTED POSITION
-    private int[] previousPosition;
     private Power power;
+    private VacuumBag vacuumBag;
     private SensorObject beforeMove;
     private SensorObject afterMove;
     int newx;
@@ -18,20 +19,20 @@ public class MovingDown {
     int currentx;
     int currenty;
 
-    public MovingDown(Motion motion, int[] currentPosition, int[] newPosition, Power power) {
+    public MovingDown(Motion motion, int[] currentPosition, int[] newPosition, Power power, VacuumBag vacuumBag) {
         this.motion = motion;
         this.currentPosition = currentPosition;
         this.newPosition = newPosition;
         this.power = power;
-        previousPosition = this.currentPosition;
+        this.vacuumBag = vacuumBag;
 
         ControlSystemClient client = new ControlSystemClient();
 
-         currentx = this.currentPosition[0];
-         currenty = this.currentPosition[1];
+        currentx = this.currentPosition[0];
+        currenty = this.currentPosition[1];
 
-         newx = this.newPosition[0];
-         newy = this.newPosition[1];
+        newx = this.newPosition[0];
+        newy = this.newPosition[1];
 
         try {
             beforeMove = client.getSensorObject("(" + currentx + "," + currenty + ")");
@@ -39,61 +40,39 @@ public class MovingDown {
             afterMove = client.getSensorObject("(" + newx + "," + newy + ")");
             afterMove.getCoordinate();
 
-            if (beforeMove.getIsWallDown()){ // Can't move
+            if (beforeMove.getIsWallDown()) { // Can't move
                 Logger.logInfo("Wall detected. Unable to move DOWN.");
-                if (afterMove.getRoomType() == "Bathroom"){
-                    Logger.logInfo("Bathroom detected. Unable to move DOWN.");
+                if (afterMove.getRoomType().equals("Bathroom")) {
+                    this.motion.visitedLocations(this.newPosition);
+                } else if (afterMove.getRoomType().equals("Closet")) {
                     this.motion.visitedLocations(this.newPosition);
                 }
-                else if (afterMove.getRoomType() == "Closet"){
-                    Logger.logInfo("Closet detected. Unable to move DOWN.");
-                    this.motion.visitedLocations(this.newPosition);
-                }
-                //this.motion.getUnvisitedLocation(this.currentPosition);
-
-            }
-            else if (afterMove.getIsStairs()) { //Can't move
+            } else if (afterMove.getIsStairs()) { //Can't move
                 Logger.logInfo("Stairs detected. Unable to move DOWN.");
                 this.motion.visitedLocations(this.newPosition);
-                //this.motion.getUnvisitedLocation(this.currentPosition);
-            }
-            else if (afterMove.getRoomType() == "Bathroom"){
+            } else if (afterMove.getRoomType().equals("Bathroom")) {
                 Logger.logInfo("Bathroom detected. Unable to move DOWN.");
                 this.motion.visitedLocations(this.newPosition);
-                //this.motion.getUnvisitedLocation(this.currentPosition);
-                }
-            else if (afterMove.getRoomType() == "Closet"){
+            } else if (afterMove.getRoomType().equals("Closet")) {
                 Logger.logInfo("Closet detected. Unable to move DOWN.");
                 this.motion.visitedLocations(this.newPosition);
-                //this.motion.getUnvisitedLocation(this.currentPosition);
-            }
-            else if (afterMove.getIsChargingStation()){
+            } else if (afterMove.getIsChargingStation()) {
                 this.motion.visitedLocations(this.newPosition);
-                //this.motion.getUnvisitedLocation(this.currentPosition);
-            }
-            else if (beforeMove.getIsDoorDown()){ // Move through the door
+            } else if (beforeMove.getIsDoorDown()) { // Move through the door
                 Logger.logInfo("Moving through the doors DOWN.");
                 canMove();
-            }
-            else { // Can Move
+            } else { // Can Move
                 canMove();
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
-    private void canMove(){
-        this.currentPosition = this.newPosition;
-        if (this.power.getPower() < 75){
-            Logger.logInfo("\n RUNNING LOW ON POWER.");
-            if (afterMove.getIsChargingStation()){
-                Logger.logInfo("\t NOW CHARGING...");
-                pause(2);
-                this.power.setPower(250.0);
-                Logger.logInfo("\t FULLY CHARGED " + this.power.getPower() + " UNITS");
-            }
-        }
 
+    private void canMove() {
+        this.currentPosition = this.newPosition;
+
+        //NORMAL CIRCUMSTANCES
         double deductPower = this.power.calculateMovementPower(beforeMove, afterMove);
         double p = this.power.power - deductPower; //deducts the power
         this.power.setPower(p);
@@ -106,7 +85,6 @@ public class MovingDown {
             pause(1);
             Logger.logInfo("\t Power remaining after moving: " + powerRemaining);
             pause(1);
-            this.motion.getUnvisitedLocation(this.currentPosition);
         } else {
             Logger.logInfo("Currently at: " + newx + ", " + newy);
             pause(1);
@@ -119,7 +97,6 @@ public class MovingDown {
             Logger.logInfo("\t Floor Type: " + floorType);
             pause(1);
             this.motion.visitedLocations(this.currentPosition);
-            this.motion.getUnvisitedLocation(this.currentPosition);
 
             if (afterMove.getIsDirty()) {
                 deductPower = this.power.calculateCleaningPower(afterMove);
@@ -131,6 +108,9 @@ public class MovingDown {
                 pause(1);
                 Logger.logInfo("\t \t Now cleaning");
                 pause(1);
+                vacuumBag.addDirtToBag(dirt);
+                double dirtInVacuumBag = vacuumBag.getBag();
+                Logger.logInfo("\tVacuum Bag:"+ dirtInVacuumBag + " UNITS.");
                 Logger.logInfo("\t Power remaining after cleaning: " + powerRemaining);
             } else {
                 Logger.logInfo("\t NO dirt detected.");
@@ -138,7 +118,7 @@ public class MovingDown {
         }
     }
 
-    private void pause(int n){
+    private void pause(int n) {
         try {
             TimeUnit.SECONDS.sleep(n);
         } catch (InterruptedException e) {
@@ -146,7 +126,7 @@ public class MovingDown {
         }
     }
 
-    public int[] getCurrentPosition() { return currentPosition; }
-
-    public int[] getPreviousPosition() { return previousPosition; }
+    public int[] getCurrentPosition() {
+        return currentPosition;
+    }
 }

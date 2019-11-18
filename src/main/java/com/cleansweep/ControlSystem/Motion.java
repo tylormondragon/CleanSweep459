@@ -14,6 +14,7 @@ public class Motion {
 	int[] previousPosition = new int [] {0,0};
 	private int[] homePosition;
 	private Power power;
+	private VacuumBag vacuumBag;
 	private List <Object> VisitedLocations_List = new ArrayList<>();
 	private List <Object> notVisitedLocations_List = new ArrayList<>();
 	private List <Object> nextLocations_List = new ArrayList<>();
@@ -31,6 +32,7 @@ public class Motion {
 		homePosition = new int [] {0,0};
 		VisitedLocations_List.add(homePosition);
 		this.notVisitedLocations = allPossibleCoordinates();
+		vacuumBag = new VacuumBag(0.0);
 		this.move();
 	}
 
@@ -47,8 +49,8 @@ public class Motion {
 
 	public List<Object> allPossibleCoordinates(){
 		int x =0; int y =0;
-		for ( x = 0; x < 10 ; x++){
-			for ( y = 0; y < 10 ; y++){
+		for ( x = 0; x < 9 ; x++){
+			for ( y = 0; y < 9 ; y++){
 				int [] coordinate = new int [] {x, y};
 				notVisitedLocations_List.add(coordinate);
 			}
@@ -80,14 +82,16 @@ public class Motion {
 		for (int n = 0; n < nextLocations_List.size(); n++) {
 			//this loop removes the current position from the list
 			int[] next = (int[]) nextLocations_List.get(n);
-			if (position[0] == next[0] && position[1] == next[1]) {
+			if (position[0] == next[0] && position[0]!=5
+					&& position[1] == next[1] && position[1]!=1) {
 				nextLocations_List.remove(n);
 			}
 		}
 		for (int n = 0; n < nextLocations_List.size(); n++) {
 			//this loop removes the previous position from the list
 			int[] next = (int[]) nextLocations_List.get(n);
-			if (previousPosition[0] == next[0] && previousPosition[1] == next[1]) {
+			if (position[0] == next[0] && position[0]!=5
+					&& position[1] == next[1] && position[1]!=1) {
 				nextLocations_List.remove(n);
 			}
 		}
@@ -102,32 +106,32 @@ public class Motion {
 			visitedLocations(currentPosition);
 			getUnvisitedLocation(currentPosition);
 
-			if (currentPosition[0] != previousPosition[0] && currentPosition[1] != previousPosition[1]){
+			if (currentPosition[0] != previousPosition[0] && currentPosition[1] != previousPosition[1])
 				previousPosition = currentPosition;
-			}
+
 			newPosition = nextCoordinate(currentPosition);
 
 			int x = newPosition[0] - currentPosition[0];
 			int y = newPosition[1] - currentPosition[1];
 
 			if (x == 0 && y == 1) { //MOVE UP
-				MovingUp movingUp = new MovingUp(this, currentPosition, newPosition, power);
+				MovingUp movingUp = new MovingUp(this, currentPosition, newPosition, power, vacuumBag);
 				currentPosition = movingUp.getCurrentPosition();
 				//previousPosition = movingUp.getPreviousPosition();
 			}
 
 			else if (x == 0 && y == -1) { //MOVE DOWN
-				MovingDown movingDown = new MovingDown(this, currentPosition, newPosition, power);
+				MovingDown movingDown = new MovingDown(this, currentPosition, newPosition, power, vacuumBag);
 				currentPosition = movingDown.getCurrentPosition();
 				//previousPosition = movingDown.getPreviousPosition();
 			}
 			else if (x == 1 && y == 0) { //MOVE RIGHT
-				MovingRight movingRight = new MovingRight(this, currentPosition, newPosition, power);
+				MovingRight movingRight = new MovingRight(this, currentPosition, newPosition, power, vacuumBag);
 				currentPosition = movingRight.getCurrentPosition();
 				//previousPosition = movingRight.getPreviousPosition();
 			}
 			else if (x == -1 && y == 0) { // MOVE LEFT
-				MovingLeft movingLeft = new MovingLeft(this, currentPosition, newPosition, power);
+				MovingLeft movingLeft = new MovingLeft(this, currentPosition, newPosition, power, vacuumBag);
 				currentPosition = movingLeft.getCurrentPosition();
 				//previousPosition = movingLeft.getPreviousPosition();
 			}
@@ -135,8 +139,8 @@ public class Motion {
 				newPosition = nextCoordinate(currentPosition);
 			}
 			//newPosition = nextCoordinate(currentPosition);
-		} while (! (notVisitedLocations_List.isEmpty() ));
-		Logger.logInfo("You Got this");
+		} while (! (notVisitedLocations_List.size() < 20 ));
+		Logger.logInfo("DONE!");
 	}
 
 	public boolean alreadyVisited(int [] position) {
